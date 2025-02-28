@@ -245,33 +245,7 @@ st.set_page_config(page_title="AQI Prediction", layout="wide")
 def apply_custom_css():
     custom_css = """
     <style>
-        body, .stApp {
-            background-color: white !important;
-            color: black !important;
-        }
-        .stTextInput, .stNumberInput, .stSelectbox, .stTextArea {
-            background-color: white !important;
-            color: black !important;
-        }
-        
-        .stButton>button {
-            background-color: #007BFF !important;
-            color: white !important;
-            border-radius: 5px !important;
-        }
-        
-        .st-bx , .st-co{
-            color : black !important;
-        }
-        .st-bt {
-            background-color: white !important;
-        }
-        h1, h2, h3, h4, h5, h6, label {
-            color: black !important;
-        }
-        * {
-            font-family: 'Arial', sans-serif;
-        }
+       
     </style>
     """
     st.markdown(custom_css, unsafe_allow_html=True)
@@ -282,7 +256,7 @@ apply_custom_css()
 st.title("Hybrid AQI Prediction Using TLSTM & XGBoost")
 
 # ----- Display Initial Image -----
-st.image("images/hd-human-icon.png", use_column_width=True)
+st.image("images/hd-human-icon.png", use_container_width =True)
 
 # ----- User Inputs -----
 api_key = "8d36c87986e710cf4104e889f6aebf17"
@@ -383,7 +357,7 @@ if lat and lon:
             dt = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]
             X_time = np.array(dt).reshape(1, 10, 1).astype("float32")
 
-            model = load_model("training_data/model", custom_objects={"TLSTMCell": TLSTMCell})
+            model = load_model("training_data/final_tlstm_model.keras", custom_objects={"TLSTMCell": TLSTMCell})
             predicted_scaled_aqi = model.predict([X_features, X_time])
             predicted_aqi = scaler_target.inverse_transform(predicted_scaled_aqi)[0][0]
             image_map = {
