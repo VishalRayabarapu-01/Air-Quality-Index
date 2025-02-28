@@ -357,7 +357,7 @@ if lat and lon:
             dt = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]
             X_time = np.array(dt).reshape(1, 10, 1).astype("float32")
 
-            model = load_model("training_data/final_tlstm_model.keras", custom_objects={"TLSTMCell": TLSTMCell})
+            model = load_model("./training_data/final_tlstm_model.keras", custom_objects={"TLSTMCell": TLSTMCell})
             predicted_scaled_aqi = model.predict([X_features, X_time])
             predicted_aqi = scaler_target.inverse_transform(predicted_scaled_aqi)[0][0]
             image_map = {
